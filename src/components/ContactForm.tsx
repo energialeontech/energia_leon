@@ -33,11 +33,46 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!form.nombre || !form.email) {
+      alert("Por favor, rellena los campos obligatorios.");
+      return;
+    }
+
     setLoading(true);
-    // Simular envío (reemplazar con fetch real a tu API o Formspree)
-    await new Promise((res) => setTimeout(res, 1500));
-    setLoading(false);
-    setEnviado(true);
+
+    try {
+      let facturaBase64 = "";
+      if (form.factura) {
+        // Convertir archivo a base64 para enviarlo via JSON
+        facturaBase64 = await new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result as string);
+          reader.readAsDataURL(form.factura as File);
+        });
+      }
+
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          facturaBase64,
+          facturaName: form.factura ? (form.factura as File).name : null,
+          facturaType: form.factura ? (form.factura as File).type : null,
+        }),
+      });
+
+      if (response.ok) {
+        setEnviado(true);
+      } else {
+        throw new Error("Error en el envío");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Lo sentimos, ha habido un error al enviar el formulario. Por favor, inténtalo de nuevo o escríbenos por WhatsApp.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (enviado) {
