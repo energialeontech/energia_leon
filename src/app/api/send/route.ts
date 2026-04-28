@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     }
 
     const data = await resend.emails.send({
-      from: 'Energía León <onboarding@resend.dev>',
+      from: 'Energía León <web@energialeon.com>',
       to: [process.env.CONTACT_EMAIL || 'info@energialeon.com'],
       subject: `⚡ Nuevo Estudio: ${nombre} (${tipo})`,
       html: `
