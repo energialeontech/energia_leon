@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -84,22 +85,16 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" style={{ textDecoration: "none", flexShrink: 0 }} onClick={() => setMenuOpen(false)}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-              <div
+              <Image
+                src="/logoenergialeonlargo.svg"
+                alt="Logo Asesoría Energética León"
+                width={120}
+                height={40}
                 style={{
-                  width: "2.25rem",
-                  height: "2.25rem",
-                  background: "linear-gradient(135deg, #C62828, #F59E0B)",
-                  borderRadius: "0.625rem",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
                   flexShrink: 0,
                 }}
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                </svg>
-              </div>
+                priority
+              />
               <div>
                 <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 900, fontSize: "1.05rem", color: "#8B1A1A", display: "block", lineHeight: 1.1 }}>
                   Asesoría Energética
