@@ -16,9 +16,9 @@ const canales = [
       </svg>
     ),
     titulo: "Te llamamos",
-    valor: "+34 987 000 000",
+    valor: "+34 610 39 62 08",
     desc: "Llámanos o déjanos tu número y nosotros te llamamos.",
-    href: "tel:+34987000000",
+    href: "tel:+34610396208",
     id: "contacto-telefono",
   },
   {
@@ -28,9 +28,9 @@ const canales = [
       </svg>
     ),
     titulo: "WhatsApp",
-    valor: "+34 600 000 000",
+    valor: "+34 610 39 62 08",
     desc: "Escríbenos ahora y te respondemos en minutos.",
-    href: "https://wa.me/34600000000?text=Hola%2C%20quiero%20mi%20estudio%20energ%C3%A9tico%20gratis",
+    href: "https://wa.me/34610396208?text=Hola%2C%20quiero%20mi%20estudio%20energ%C3%A9tico%20gratis",
     id: "contacto-whatsapp",
   },
   {
@@ -41,9 +41,9 @@ const canales = [
       </svg>
     ),
     titulo: "Email",
-    valor: "hola@asesorialeon.es",
+    valor: "info@energialeon.com",
     desc: "Envíanos un email con tu factura adjunta.",
-    href: "mailto:hola@asesorialeon.es",
+    href: "mailto:info@energialeon.com",
     id: "contacto-email",
   },
 ];

@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function WhatsAppFloat() {
   return (
     <a
-      href="https://wa.me/34600000000?text=Hola%2C%20me%20interesa%20el%20estudio%20energ%C3%A9tico%20gratuito"
+      href="https://wa.me/34610396208?text=Hola%2C%20me%20interesa%20el%20estudio%20energ%C3%A9tico%20gratuito"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"

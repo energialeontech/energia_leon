@@ -108,13 +108,12 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
         {/* Teléfono */}
         <div>
           <label htmlFor="telefono" className="input-label">
-            Teléfono *
+            Teléfono
           </label>
           <input
             id="telefono"
             name="telefono"
             type="tel"
-            required
             placeholder="+34 600 000 000"
             value={form.telefono}
             onChange={handleChange}
@@ -126,12 +125,13 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
         {/* Email */}
         <div>
           <label htmlFor="email" className="input-label">
-            Correo electrónico
+            Correo electrónico *
           </label>
           <input
             id="email"
             name="email"
             type="email"
+            required
             placeholder="correo@ejemplo.com"
             value={form.email}
             onChange={handleChange}

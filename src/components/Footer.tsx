@@ -149,8 +149,8 @@ export default function Footer() {
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
               {[
-                { icon: "📞", text: "+34 987 000 000", label: "Teléfono" },
-                { icon: "✉️", text: "hola@asesorialeon.es", label: "Email" },
+                { icon: "📞", text: "+34 610 39 62 08", label: "Teléfono" },
+                { icon: "✉️", text: "info@energialeon.com", label: "Email" },
                 { icon: "📍", text: "León, España", label: "Ubicación" },
               ].map((c) => (
                 <div key={c.label} style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
@@ -161,7 +161,7 @@ export default function Footer() {
                 </div>
               ))}
               <a
-                href="https://wa.me/34600000000"
+                href="https://wa.me/34610396208"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary"
