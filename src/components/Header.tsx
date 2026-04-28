@@ -49,7 +49,7 @@ export default function Header() {
 
   const navLinks = [
     { href: "/", label: "Inicio", icon: "M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" },
-    { href: "/servicios", label: "Servicios", icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z" },
+    { href: "/servicios", label: "Servicios", icon: "brand" },
     { href: "/como-funciona", label: "Cómo funciona", icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
     { href: "/contacto", label: "Contacto", icon: "M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.04a16 16 0 0 0 6.05 6.05l.96-.93a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.46 16.92z" },
   ];
@@ -58,9 +58,11 @@ export default function Header() {
     <>
       <header
         style={{
-          position: "sticky",
+          position: "fixed",
           top: 0,
-          zIndex: 100,
+          left: 0,
+          right: 0,
+          zIndex: 1000,
           background: menuOpen ? "rgba(255,255,255,1)" : scrolled ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,1)",
           backdropFilter: scrolled && !menuOpen ? "blur(12px)" : "none",
           borderBottom: scrolled || menuOpen ? "1px solid #FECACA" : "1px solid transparent",
@@ -138,12 +140,8 @@ export default function Header() {
           </nav>
 
           {/* CTA escritorio */}
-          <Link
-            href="/contacto"
-            className="btn-primary header-desktop-cta"
-            style={{ fontSize: "0.875rem", padding: "0.65rem 1.35rem" }}
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <Link href="/contacto" className="btn-primary animate-pulse-glow" id="header-cta-desktop" style={{ fontSize: "0.85rem", padding: "0.6rem 1.2rem" }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
             </svg>
             Pide tu estudio gratis
@@ -240,22 +238,21 @@ export default function Header() {
                     flexShrink: 0,
                   }}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C62828" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d={l.icon} />
-                  </svg>
+                  {l.icon === "brand" ? (
+                    <img src="/favicon.svg" alt="" style={{ width: "16px", height: "16px", filter: "brightness(0) saturate(100%) invert(14%) sepia(85%) saturate(3477%) hue-rotate(352deg) brightness(85%) contrast(97%)" }} />
+                  ) : (
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C62828" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d={l.icon} />
+                    </svg>
+                  )}
                 </div>
                 {l.label}
               </a>
             ))}
 
             {/* CTA móvil */}
-            <Link
-              href="/contacto"
-              className="btn-primary"
-              onClick={() => setMenuOpen(false)}
-              style={{ marginTop: "0.75rem", justifyContent: "center", textAlign: "center", width: "100%" }}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <Link href="/contacto" className="btn-primary" onClick={() => setMenuOpen(false)} style={{ justifyContent: "center", width: "100%", marginTop: "1rem" }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
               </svg>
               Pide tu estudio gratis

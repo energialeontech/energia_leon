@@ -116,13 +116,15 @@ export default function CTABanner({
               boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-            </svg>
+            <img 
+              src="/favicon.svg" 
+              alt="" 
+              style={{ width: "18px", height: "18px", objectFit: "contain", filter: "brightness(0) invert(1)" }} 
+            />
             Pide tu estudio gratis
           </Link>
           <a
-            href="https://wa.me/34600000000?text=Hola%2C%20quiero%20que%20me%20llam%C3%A9is"
+            href="https://wa.me/34610396208?text=Hola%2C%20quiero%20que%20me%20llam%C3%A9is"
             target="_blank"
             rel="noopener noreferrer"
             id="cta-banner-llamada"

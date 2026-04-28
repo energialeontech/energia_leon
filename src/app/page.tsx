@@ -81,7 +81,7 @@ function Hero() {
               Pide tu estudio gratis
             </Link>
             <a
-              href="https://wa.me/34600000000?text=Hola%2C%20quiero%20mi%20estudio%20energ%C3%A9tico%20gratis"
+              href="https://wa.me/34610396208?text=Hola%2C%20quiero%20mi%20estudio%20energ%C3%A9tico%20gratis"
               target="_blank"
               rel="noopener noreferrer"
               id="hero-cta-whatsapp"

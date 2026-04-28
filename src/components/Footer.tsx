@@ -34,9 +34,16 @@ export default function Footer() {
                   justifyContent: "center",
                 }}
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                </svg>
+                <img 
+                  src="/favicon.svg" 
+                  alt="Icono Energía León" 
+                  style={{ 
+                    width: "22px", 
+                    height: "22px", 
+                    objectFit: "contain",
+                    filter: "brightness(0) invert(1)" // Lo hace blanco para que resalte sobre el fondo rojo
+                  }} 
+                />
               </div>
               <div>
                 <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 900, fontSize: "1.05rem", color: "white", display: "block", lineHeight: 1.1 }}>
@@ -50,45 +57,7 @@ export default function Footer() {
             <p style={{ color: "#D1D5DB", fontSize: "0.875rem", lineHeight: 1.7, maxWidth: "260px" }}>
               Te ayudamos a pagar menos en luz y gas, sin cambiar de compañía y con total transparencia.
             </p>
-            <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem" }}>
-              {/* Placeholder redes sociales */}
-              {["facebook", "instagram", "linkedin"].map((red) => (
-                <a
-                  key={red}
-                  href={`https://${red}.com`}
-                  aria-label={`Síguenos en ${red}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    width: "2.25rem",
-                    height: "2.25rem",
-                    borderRadius: "50%",
-                    border: "1px solid rgba(198,40,40,0.5)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#FECACA",
-                    transition: "all 0.2s ease",
-                    fontSize: "0.7rem",
-                    fontFamily: "'Plus Jakarta Sans', sans-serif",
-                    fontWeight: 700,
-                    textDecoration: "none",
-                  }}
-                  onMouseEnter={(e) => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.background = "#C62828";
-                    el.style.borderColor = "#C62828";
-                  }}
-                  onMouseLeave={(e) => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.background = "transparent";
-                    el.style.borderColor = "rgba(198,40,40,0.5)";
-                  }}
-                >
-                  {red[0].toUpperCase()}
-                </a>
-              ))}
-            </div>
+
           </div>
 
           {/* Servicios */}
@@ -151,7 +120,7 @@ export default function Footer() {
               {[
                 { icon: "📞", text: "+34 610 39 62 08", label: "Teléfono" },
                 { icon: "✉️", text: "info@energialeon.com", label: "Email" },
-                { icon: "📍", text: "León, España", label: "Ubicación" },
+                { icon: "📍", text: "Sevilla, España", label: "Ubicación" },
               ].map((c) => (
                 <div key={c.label} style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
                   <span style={{ fontSize: "1rem" }} aria-hidden="true">{c.icon}</span>

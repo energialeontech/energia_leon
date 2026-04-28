@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     "Reducimos tu factura de luz y gas sin cambiar de compañía. Estudio energético gratuito para hogares y pymes en España. Contacta ahora.",
   keywords:
-    "asesoría energética, ahorro energético, factura luz, factura gas, tarifa energía, León, España, pymes, hogares",
+    "asesoría energética, ahorro energético, factura luz, factura gas, tarifa energía, Sevilla, España, pymes, hogares",
   icons: {
     icon: "/favicon.svg",
     apple: "/apple-touch-icon.png",
@@ -44,7 +44,7 @@ export default function RootLayout({
       </head>
       <body>
         <Header />
-        <main>{children}</main>
+        <main style={{ paddingTop: "72px" }}>{children}</main>
         <Footer />
         <WhatsAppFloat />
       </body>
