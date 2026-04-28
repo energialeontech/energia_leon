@@ -1,11 +1,7 @@
 "use client";
 
-interface StudyCTAButtonProps {
-  className?: string;
-  style?: React.CSSProperties;
-  children: React.ReactNode;
-  id?: string;
-  onClick?: () => void;
+interface StudyCTAButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  // Opcional: puedes añadir un callback extra si quieres, pero usaremos el onClick estándar
 }
 
 export default function StudyCTAButton({
@@ -14,10 +10,16 @@ export default function StudyCTAButton({
   children,
   id,
   onClick,
+  ...props
 }: StudyCTAButtonProps) {
-  const handleClick = () => {
-    onClick?.();
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // 1. Abrir el modal
     window.dispatchEvent(new CustomEvent("open-study-modal"));
+    
+    // 2. Ejecutar el onClick que se le pase (si existe)
+    if (onClick) {
+      onClick(e);
+    }
   };
 
   return (
@@ -25,6 +27,7 @@ export default function StudyCTAButton({
       id={id}
       className={className}
       style={{ border: "none", cursor: "pointer", ...style }}
+      {...props}
       onClick={handleClick}
     >
       {children}
