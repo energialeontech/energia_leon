@@ -1,17 +1,22 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(request: Request) {
   try {
+    const apiKey = process.env.RESEND_API_KEY;
+    
+    if (!apiKey) {
+      console.error('RESEND_API_KEY is missing');
+      return NextResponse.json({ error: 'Configuración del servidor incompleta' }, { status: 500 });
+    }
+
+    const resend = new Resend(apiKey);
     const body = await request.json();
     const { nombre, telefono, email, tipo, mensaje, facturaBase64, facturaName, facturaType } = body;
 
     // Construir los adjuntos si hay factura
     const attachments = [];
     if (facturaBase64 && facturaName) {
-      // El base64 viene con el prefijo "data:application/pdf;base64," que hay que limpiar
       const content = facturaBase64.split(',')[1] || facturaBase64;
       attachments.push({
         filename: facturaName,
@@ -20,7 +25,7 @@ export async function POST(request: Request) {
     }
 
     const data = await resend.emails.send({
-      from: 'Energía León <onboarding@resend.dev>', // Cambiar por info@energialeon.com una vez verificado el dominio
+      from: 'Energía León <onboarding@resend.dev>',
       to: [process.env.CONTACT_EMAIL || 'info@energialeon.com'],
       subject: `⚡ Nuevo Estudio: ${nombre} (${tipo})`,
       html: `
