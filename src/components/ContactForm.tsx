@@ -159,24 +159,22 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
           </select>
         </div>
 
-        {/* Mensaje — ocupa todo el ancho */}
-        {variant === "full" && (
-          <div style={{ gridColumn: "1 / -1" }}>
-            <label htmlFor="mensaje" className="input-label">
-              ¿En qué podemos ayudarte?
-            </label>
-            <textarea
-              id="mensaje"
-              name="mensaje"
-              rows={3}
-              placeholder="Cuéntanos brevemente tu situación actual..."
-              value={form.mensaje}
-              onChange={handleChange}
-              className="input-field"
-              style={{ resize: "vertical" }}
-            />
-          </div>
-        )}
+        {/* Mensaje — siempre visible */}
+        <div style={{ gridColumn: "1 / -1" }}>
+          <label htmlFor="mensaje" className="input-label">
+            ¿En qué podemos ayudarte?
+          </label>
+          <textarea
+            id="mensaje"
+            name="mensaje"
+            rows={3}
+            placeholder="Cuéntanos brevemente tu situación actual..."
+            value={form.mensaje}
+            onChange={handleChange}
+            className="input-field"
+            style={{ resize: "vertical" }}
+          />
+        </div>
 
         {/* Subir factura */}
         <div style={{ gridColumn: "1 / -1" }}>
@@ -247,7 +245,7 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
           )}
         </button>
         <a
-          href="https://wa.me/34600000000?text=Hola%2C%20quiero%20mi%20estudio%20energ%C3%A9tico%20gratis"
+          href="https://wa.me/34610396208?text=Hola%2C%20quiero%20mi%20estudio%20energ%C3%A9tico%20gratis"
           target="_blank"
           rel="noopener noreferrer"
           id="btn-whatsapp-form"

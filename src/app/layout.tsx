@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import StudyModal from "@/components/StudyModal";
 
 export const metadata: Metadata = {
   title: "Asesoría Energética León | Ahorra en tu factura de luz y gas",
@@ -47,6 +48,7 @@ export default function RootLayout({
         <main style={{ paddingTop: "72px" }}>{children}</main>
         <Footer />
         <WhatsAppFloat />
+        <StudyModal />
       </body>
     </html>
   );

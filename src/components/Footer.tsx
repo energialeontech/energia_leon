@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import StudyCTAButton from "@/components/StudyCTAButton";
 
 export default function Footer() {
   return (
@@ -70,7 +71,6 @@ export default function Footer() {
                 { label: "Optimización de luz", href: "/servicios#luz" },
                 { label: "Optimización de gas", href: "/servicios#gas" },
                 { label: "Energía solar para pymes", href: "/servicios#solar" },
-                { label: "Estudio energético gratuito", href: "/contacto" },
               ].map((item) => (
                 <li key={item.href}>
                   <Link
@@ -83,6 +83,15 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <StudyCTAButton
+                  style={{ background: "none", padding: 0, color: "#D1D5DB", textDecoration: "none", fontSize: "0.875rem", transition: "color 0.2s ease", textAlign: "left" }}
+                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#FECACA")}
+                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "#D1D5DB")}
+                >
+                  → Estudio energético gratuito
+                </StudyCTAButton>
+              </li>
             </ul>
           </div>
 
@@ -95,7 +104,6 @@ export default function Footer() {
               {[
                 { label: "Cómo funciona", href: "/como-funciona" },
                 { label: "Quiénes somos", href: "/como-funciona#nosotros" },
-                { label: "Contacto", href: "/contacto" },
               ].map((item) => (
                 <li key={item.href}>
                   <Link
@@ -108,6 +116,15 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <StudyCTAButton
+                  style={{ background: "none", padding: 0, color: "#D1D5DB", textDecoration: "none", fontSize: "0.875rem", transition: "color 0.2s ease", textAlign: "left" }}
+                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#FECACA")}
+                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "#D1D5DB")}
+                >
+                  → Contacto
+                </StudyCTAButton>
+              </li>
             </ul>
           </div>
 

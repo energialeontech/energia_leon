@@ -1,6 +1,8 @@
+"use client";
 import Link from "next/link";
 import CTABanner from "@/components/CTABanner";
 import ContactForm from "@/components/ContactForm";
+import StudyCTAButton from "@/components/StudyCTAButton";
 
 // === HERO ===
 function Hero() {
@@ -74,12 +76,12 @@ function Hero() {
 
           {/* CTAs */}
           <div className="hero-ctas" style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem", marginBottom: "2.5rem" }}>
-            <Link href="/contacto" className="btn-amber" id="hero-cta-estudio">
+            <StudyCTAButton className="btn-amber" id="hero-cta-estudio">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
               </svg>
               Pide tu estudio gratis
-            </Link>
+            </StudyCTAButton>
             <a
               href="https://wa.me/34610396208?text=Hola%2C%20quiero%20mi%20estudio%20energ%C3%A9tico%20gratis"
               target="_blank"
@@ -389,9 +391,9 @@ function AhorroVisual() {
                 </div>
               ))}
             </div>
-            <Link href="/contacto" className="btn-amber" id="ahorro-cta">
+            <StudyCTAButton className="btn-amber" id="ahorro-cta">
               Calcular mi ahorro →
-            </Link>
+            </StudyCTAButton>
           </div>
 
           {/* Ilustración visual */}

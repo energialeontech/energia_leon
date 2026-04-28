@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import StudyCTAButton from "@/components/StudyCTAButton";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -140,12 +141,12 @@ export default function Header() {
           </nav>
 
           {/* CTA escritorio */}
-          <Link href="/contacto" className="btn-primary animate-pulse-glow hidden md:inline-flex" id="header-cta-desktop" style={{ fontSize: "0.85rem", padding: "0.6rem 1.2rem" }}>
+          <StudyCTAButton className="btn-primary animate-pulse-glow header-desktop-cta" id="header-cta-desktop" style={{ fontSize: "0.85rem", padding: "0.6rem 1.2rem" }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
             </svg>
             Pide tu estudio gratis
-          </Link>
+          </StudyCTAButton>
 
           {/* Botón hamburguesa — solo móvil */}
           <button
@@ -251,12 +252,12 @@ export default function Header() {
             ))}
 
             {/* CTA móvil */}
-            <Link href="/contacto" className="btn-primary" onClick={() => setMenuOpen(false)} style={{ justifyContent: "center", width: "100%", marginTop: "1rem" }}>
+            <StudyCTAButton className="btn-primary" id="header-cta-mobile" onClick={() => setMenuOpen(false)} style={{ justifyContent: "center", width: "100%", marginTop: "1rem" }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
               </svg>
               Pide tu estudio gratis
-            </Link>
+            </StudyCTAButton>
           </div>
         </div>
       </header>

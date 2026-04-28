@@ -1,4 +1,5 @@
-import Link from "next/link";
+"use client";
+import StudyCTAButton from "@/components/StudyCTAButton";
 
 interface CTABannerProps {
   title?: string;
@@ -97,8 +98,7 @@ export default function CTABanner({
             alignItems: "center",
           }}
         >
-          <Link
-            href="/contacto"
+          <StudyCTAButton
             id="cta-banner-estudio"
             style={{
               display: "inline-flex",
@@ -122,7 +122,7 @@ export default function CTABanner({
               style={{ width: "18px", height: "18px", objectFit: "contain", filter: "brightness(0) invert(1)" }} 
             />
             Pide tu estudio gratis
-          </Link>
+          </StudyCTAButton>
           <a
             href="https://wa.me/34610396208?text=Hola%2C%20quiero%20que%20me%20llam%C3%A9is"
             target="_blank"
