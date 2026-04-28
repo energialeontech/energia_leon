@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     "asesoría energética, ahorro energético, factura luz, factura gas, tarifa energía, León, España, pymes, hogares",
   icons: {
     icon: "/favicon.svg",
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "Asesoría Energética León | Ahorra en tu factura",
