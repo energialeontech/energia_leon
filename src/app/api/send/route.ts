@@ -70,9 +70,16 @@ export async function POST(request: Request) {
       attachments: attachments,
     });
 
+    console.log("Respuesta de Resend:", data);
+
+    if (data.error) {
+      console.error("Error detallado de Resend:", data.error);
+      return NextResponse.json({ error: data.error }, { status: 400 });
+    }
+
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error enviando email:', error);
+    console.error('Error fatal en la API:', error);
     return NextResponse.json({ error: 'Error al enviar el email' }, { status: 500 });
   }
 }
