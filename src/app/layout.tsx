@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "Reducimos tu factura de luz y gas sin cambiar de compañía. Estudio energético gratuito para hogares y pymes en España. Contacta ahora.",
   keywords:
     "asesoría energética, ahorro energético, factura luz, factura gas, tarifa energía, León, España, pymes, hogares",
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "Asesoría Energética León | Ahorra en tu factura",
     description:
