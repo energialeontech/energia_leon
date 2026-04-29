@@ -40,9 +40,9 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
     const file = e.target.files?.[0] || null;
     
     if (file) {
-      // Validar tamaño (máx 20MB para fotos de alta resolución)
-      if (file.size > 20 * 1024 * 1024) {
-        alert("El archivo es demasiado grande (máximo 20MB). Por favor, elige una imagen más pequeña o un PDF.");
+      // Validar tamaño (máx 2MB)
+      if (file.size > 2 * 1024 * 1024) {
+        alert("El archivo es demasiado grande (máximo 2MB). Por favor, elige una imagen más pequeña o un PDF.");
         e.target.value = "";
         return;
       }
@@ -292,7 +292,7 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
               <line x1="12" y1="3" x2="12" y2="15" />
             </svg>
             <span style={{ fontSize: "0.875rem", color: (form.factura || isProcessingFile) ? "#C62828" : "#6B7280", fontWeight: (form.factura || isProcessingFile) ? 600 : 400, pointerEvents: "none" }}>
-              {isProcessingFile ? "Procesando archivo..." : (form.factura ? `✓ ${form.factura.name}` : "Haz clic para subir factura (PDF o Imagen)")}
+              {isProcessingFile ? "Procesando archivo..." : (form.factura ? `✓ ${form.factura.name}` : "Haz clic para subir factura (PDF o Imagen, máx. 2MB)")}
             </span>
             {form.factura && !isProcessingFile && (
               <button 
