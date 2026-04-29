@@ -179,15 +179,19 @@ export default function Footer() {
             © {new Date().getFullYear()} Asesoría Energética León. Todos los derechos reservados.
           </p>
           <div style={{ display: "flex", gap: "1.25rem" }}>
-            {["Aviso legal", "Privacidad", "Cookies"].map((item) => (
+            {[
+              { label: "Aviso legal", href: "/politica-privacidad#aviso-legal" },
+              { label: "Privacidad", href: "/politica-privacidad#privacidad" },
+              { label: "Cookies", href: "/politica-privacidad#cookies" },
+            ].map((item) => (
               <Link
-                key={item}
-                href="#"
+                key={item.label}
+                href={item.href}
                 style={{ color: "#6B7280", fontSize: "0.8rem", textDecoration: "none" }}
                 onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#FECACA")}
                 onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "#6B7280")}
               >
-                {item}
+                {item.label}
               </Link>
             ))}
           </div>

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 
 interface ContactFormProps {
   variant?: "full" | "compact";
@@ -271,7 +272,7 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
             style={{ marginTop: "0.25rem", cursor: "pointer", width: "16px", height: "16px" }}
           />
           <label htmlFor="privacidad" style={{ fontSize: "0.85rem", color: "#6B7280", cursor: "pointer", lineHeight: "1.4" }}>
-            He leído y acepto la <a href="#" style={{ color: "#C62828", textDecoration: "underline" }}>política de privacidad</a> y el tratamiento de mis datos para la realización de este estudio energético gratuito.
+            He leído y acepto la <Link href="/politica-privacidad" target="_blank" style={{ color: "#C62828", textDecoration: "underline" }}>política de privacidad</Link> y el tratamiento de mis datos para la realización de este estudio energético gratuito.
           </label>
         </div>
       </div>
