@@ -112,8 +112,10 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
     );
   }
 
+  const isFormValid = form.nombre.trim() !== "" && form.email.trim() !== "" && form.email.includes("@");
+
   return (
-    <form onSubmit={handleSubmit} noValidate>
+    <form onSubmit={handleSubmit}>
       <div
         style={{
           display: "grid",
@@ -263,9 +265,15 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
       >
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || !isFormValid}
           className="btn-primary"
-          style={{ flex: 1, minWidth: "200px", justifyContent: "center", opacity: loading ? 0.7 : 1 }}
+          style={{ 
+            flex: 1, 
+            minWidth: "200px", 
+            justifyContent: "center", 
+            opacity: (loading || !isFormValid) ? 0.5 : 1,
+            cursor: (loading || !isFormValid) ? "not-allowed" : "pointer"
+          }}
           id="btn-enviar-formulario"
         >
           {loading ? (
