@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useId } from "react";
 import Link from "next/link";
 
 interface ContactFormProps {
@@ -7,6 +7,7 @@ interface ContactFormProps {
 }
 
 export default function ContactForm({ variant = "full" }: ContactFormProps) {
+  const idPrefix = useId();
   const [form, setForm] = useState({
     nombre: "",
     telefono: "",
@@ -155,11 +156,11 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
       >
         {/* Nombre */}
         <div>
-          <label htmlFor="nombre" className="input-label">
+          <label htmlFor={`${idPrefix}-nombre`} className="input-label">
             Nombre completo *
           </label>
           <input
-            id="nombre"
+            id={`${idPrefix}-nombre`}
             name="nombre"
             type="text"
             required
@@ -173,11 +174,11 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
 
         {/* Teléfono */}
         <div>
-          <label htmlFor="telefono" className="input-label">
+          <label htmlFor={`${idPrefix}-telefono`} className="input-label">
             Teléfono
           </label>
           <input
-            id="telefono"
+            id={`${idPrefix}-telefono`}
             name="telefono"
             type="tel"
             placeholder="+34 600 000 000"
@@ -190,11 +191,11 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
 
         {/* Email */}
         <div>
-          <label htmlFor="email" className="input-label">
+          <label htmlFor={`${idPrefix}-email`} className="input-label">
             Correo electrónico *
           </label>
           <input
-            id="email"
+            id={`${idPrefix}-email`}
             name="email"
             type="email"
             required
@@ -208,11 +209,11 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
 
         {/* Tipo */}
         <div>
-          <label htmlFor="tipo" className="input-label">
+          <label htmlFor={`${idPrefix}-tipo`} className="input-label">
             Soy...
           </label>
           <select
-            id="tipo"
+            id={`${idPrefix}-tipo`}
             name="tipo"
             value={form.tipo}
             onChange={handleChange}
@@ -227,11 +228,11 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
 
         {/* Método de contacto */}
         <div>
-          <label htmlFor="metodoContacto" className="input-label">
+          <label htmlFor={`${idPrefix}-metodoContacto`} className="input-label">
             Prefiero que me contacten por...
           </label>
           <select
-            id="metodoContacto"
+            id={`${idPrefix}-metodoContacto`}
             name="metodoContacto"
             value={form.metodoContacto}
             onChange={handleChange}
@@ -246,11 +247,11 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
 
         {/* Mensaje — siempre visible */}
         <div style={{ gridColumn: "1 / -1" }}>
-          <label htmlFor="mensaje" className="input-label">
+          <label htmlFor={`${idPrefix}-mensaje`} className="input-label">
             ¿En qué podemos ayudarte?
           </label>
           <textarea
-            id="mensaje"
+            id={`${idPrefix}-mensaje`}
             name="mensaje"
             rows={3}
             placeholder="Cuéntanos brevemente tu situación actual..."
@@ -263,11 +264,11 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
 
         {/* Subir factura */}
         <div style={{ gridColumn: "1 / -1" }}>
-          <label htmlFor="factura" className="input-label">
+          <label htmlFor={`${idPrefix}-factura`} className="input-label">
             📎 Adjunta tu factura (opcional)
           </label>
           <label
-            htmlFor="factura"
+            htmlFor={`${idPrefix}-factura`}
             style={{
               display: "flex",
               alignItems: "center",
@@ -321,7 +322,7 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
             )}
           </label>
           <input
-            id="factura"
+            id={`${idPrefix}-factura`}
             type="file"
             accept="application/pdf,image/jpeg,image/png,image/heic,image/heif,.pdf,.jpg,.jpeg,.png"
             onChange={handleFile}
@@ -343,7 +344,7 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
         {/* Privacidad */}
         <div style={{ gridColumn: "1 / -1", display: "flex", alignItems: "flex-start", gap: "0.5rem", marginTop: "0.5rem" }}>
           <input
-            id="privacidad"
+            id={`${idPrefix}-privacidad`}
             name="privacidad"
             type="checkbox"
             required
@@ -351,7 +352,7 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
             onChange={handleChange}
             style={{ marginTop: "0.25rem", cursor: "pointer", width: "16px", height: "16px" }}
           />
-          <label htmlFor="privacidad" style={{ fontSize: "0.85rem", color: "#6B7280", cursor: "pointer", lineHeight: "1.4" }}>
+          <label htmlFor={`${idPrefix}-privacidad`} style={{ fontSize: "0.85rem", color: "#6B7280", cursor: "pointer", lineHeight: "1.4" }}>
             He leído y acepto la <Link href="/politica-privacidad" target="_blank" style={{ color: "#C62828", textDecoration: "underline" }}>política de privacidad</Link> y el tratamiento de mis datos para la realización de este estudio energético gratuito.
           </label>
         </div>
