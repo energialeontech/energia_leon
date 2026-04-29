@@ -103,7 +103,7 @@ export default function Footer() {
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
               {[
                 { label: "Cómo funciona", href: "/como-funciona" },
-                { label: "Quiénes somos", href: "/como-funciona#nosotros" },
+                { label: "Sobre Mí", href: "/sobre-mi" },
               ].map((item) => (
                 <li key={item.href}>
                   <Link
