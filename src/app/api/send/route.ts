@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   try {
     const apiKey = process.env.RESEND_API_KEY;
-    
+
     if (!apiKey) {
       console.error('RESEND_API_KEY is missing');
       return NextResponse.json({ error: 'Configuración del servidor incompleta' }, { status: 500 });
@@ -122,8 +122,8 @@ export async function POST(request: Request) {
 
               <!-- Pie de página -->
               <div style="background-color: #f9f9f9; padding: 25px; text-align: center; font-size: 13px; color: #888; border-top: 1px solid #f0f0f0;">
-                <p style="margin: 0; font-weight: 600; color: #555;">Energía León - Eficiencia y Ahorro Energético</p>
-                <p style="margin: 8px 0 0;">León, España</p>
+                <p style="margin: 0; font-weight: 600; color: #555;">Asesoría Energética León - Eficiencia y Ahorro Energético</p>
+                <p style="margin: 8px 0 0;">Sevilla, España</p>
                 <p style="margin: 15px 0 0; font-size: 11px;">Este es un mensaje automático. Por favor, no respondas directamente a este envío.</p>
               </div>
             </div>
