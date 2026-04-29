@@ -19,6 +19,7 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
   });
   const [enviado, setEnviado] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isProcessingFile, setIsProcessingFile] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -36,7 +37,27 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
-    setForm((prev) => ({ ...prev, factura: file }));
+    
+    if (file) {
+      // Validar tamaño (máx 20MB para fotos de alta resolución)
+      if (file.size > 20 * 1024 * 1024) {
+        alert("El archivo es demasiado grande (máximo 20MB). Por favor, elige una imagen más pequeña o un PDF.");
+        e.target.value = "";
+        return;
+      }
+      
+      setIsProcessingFile(true);
+      // Simulamos un pequeño delay para asegurar que el estado se actualiza en móvil
+      setTimeout(() => {
+        setForm((prev) => ({ ...prev, factura: file }));
+        setIsProcessingFile(false);
+      }, 100);
+    } else {
+      setForm((prev) => ({ ...prev, factura: null }));
+    }
+    
+    // Resetear el valor del input para permitir seleccionar el mismo archivo si se desea
+    e.target.value = "";
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -261,21 +282,60 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
             onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.borderColor = "#C62828")}
             onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.borderColor = "#FECACA")}
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C62828" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg 
+              width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C62828" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+              style={{ pointerEvents: "none" }}
+            >
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="17 8 12 3 7 8" />
               <line x1="12" y1="3" x2="12" y2="15" />
             </svg>
-            <span style={{ fontSize: "0.875rem", color: form.factura ? "#C62828" : "#6B7280", fontWeight: form.factura ? 600 : 400 }}>
-              {form.factura ? form.factura.name : "Haz clic para subir PDF, JPG o PNG"}
+            <span style={{ fontSize: "0.875rem", color: (form.factura || isProcessingFile) ? "#C62828" : "#6B7280", fontWeight: (form.factura || isProcessingFile) ? 600 : 400, pointerEvents: "none" }}>
+              {isProcessingFile ? "Procesando archivo..." : (form.factura ? `✓ ${form.factura.name}` : "Haz clic para subir factura (PDF o Imagen)")}
             </span>
+            {form.factura && !isProcessingFile && (
+              <button 
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setForm(prev => ({ ...prev, factura: null }));
+                }}
+                style={{
+                  marginLeft: "auto",
+                  background: "#FECACA",
+                  border: "none",
+                  borderRadius: "50%",
+                  width: "20px",
+                  height: "20px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  color: "#C62828",
+                  fontSize: "12px"
+                }}
+              >
+                ✕
+              </button>
+            )}
           </label>
           <input
             id="factura"
             type="file"
-            accept=".pdf,.jpg,.jpeg,.png"
+            accept="application/pdf,image/jpeg,image/png,image/heic,image/heif,.pdf,.jpg,.jpeg,.png"
             onChange={handleFile}
-            style={{ display: "none" }}
+            style={{ 
+              position: "absolute",
+              width: "1px",
+              height: "1px",
+              padding: "0",
+              margin: "-1px",
+              overflow: "hidden",
+              clip: "rect(0,0,0,0)",
+              border: "0",
+              display: "block" 
+            }}
             aria-label="Subir factura"
           />
         </div>
