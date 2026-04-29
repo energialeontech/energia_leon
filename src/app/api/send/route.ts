@@ -80,7 +80,7 @@ export async function POST(request: Request) {
         const userEmail = await resend.emails.send({
           from: 'Energía León <info@energialeon.com>',
           to: [email],
-          subject: '¡Hemos recibido tu solicitud! - Energía León',
+          subject: '¡Hemos recibido tu solicitud! - Asesoría Energética León',
           html: `
             <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 600px; margin: 0 auto; border: 1px solid #f0f0f0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
               <!-- Cabecera con Logo -->

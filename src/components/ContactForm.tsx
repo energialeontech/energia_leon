@@ -13,6 +13,7 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
     tipo: "hogar",
     mensaje: "",
     factura: null as File | null,
+    privacidad: false,
   });
   const [enviado, setEnviado] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -22,8 +23,13 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target as HTMLInputElement;
+    if (type === "checkbox") {
+      const checked = (e.target as HTMLInputElement).checked;
+      setForm((prev) => ({ ...prev, [name]: checked }));
+    } else {
+      setForm((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,8 +39,8 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.nombre || !form.email) {
-      alert("Por favor, rellena los campos obligatorios.");
+    if (!form.nombre || !form.email || !form.privacidad) {
+      alert("Por favor, rellena los campos obligatorios y acepta la política de privacidad.");
       return;
     }
 
@@ -112,7 +118,7 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
     );
   }
 
-  const isFormValid = form.nombre.trim() !== "" && form.email.trim() !== "" && form.email.includes("@");
+  const isFormValid = form.nombre.trim() !== "" && form.email.trim() !== "" && form.email.includes("@") && form.privacidad;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -251,6 +257,22 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
             style={{ display: "none" }}
             aria-label="Subir factura"
           />
+        </div>
+
+        {/* Privacidad */}
+        <div style={{ gridColumn: "1 / -1", display: "flex", alignItems: "flex-start", gap: "0.5rem", marginTop: "0.5rem" }}>
+          <input
+            id="privacidad"
+            name="privacidad"
+            type="checkbox"
+            required
+            checked={form.privacidad}
+            onChange={handleChange}
+            style={{ marginTop: "0.25rem", cursor: "pointer", width: "16px", height: "16px" }}
+          />
+          <label htmlFor="privacidad" style={{ fontSize: "0.85rem", color: "#6B7280", cursor: "pointer", lineHeight: "1.4" }}>
+            He leído y acepto la <a href="#" style={{ color: "#C62828", textDecoration: "underline" }}>política de privacidad</a> y el tratamiento de mis datos para la realización de este estudio energético gratuito.
+          </label>
         </div>
       </div>
 
