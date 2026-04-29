@@ -43,14 +43,15 @@ const servicios = [
     id: "solar",
     emoji: "☀️",
     color: "#8B1A1A",
-    titulo: "Energía solar para pymes",
+    titulo: "Energía solar para pymes y hogares",
     subtitulo: "Autoconsumo y ahorro a largo plazo",
     beneficios: [
+      "Instalación de placas solares",
       "Estudio de viabilidad solar gratuito",
+      "Cargadores para coches eléctricos",
+      "Alquiler de techos industriales",
       "Análisis de retorno de inversión",
-      "Acompañamiento en instalación",
       "Gestión de subvenciones disponibles",
-      "Alta en Red Eléctrica",
     ],
     descripcion:
       "Si tienes un negocio con consumo elevado, la energía solar puede reducir tu factura hasta un 70%. Te explicamos si es viable y cuándo recuperarías la inversión.",

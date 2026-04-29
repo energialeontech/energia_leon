@@ -156,38 +156,38 @@ function TrustBand() {
   const allLogos = [...logos, ...logos];
 
   return (
-    <section style={{ 
-      background: "#FFF5F5", 
-      borderTop: "1px solid #FECACA", 
-      borderBottom: "1px solid #FECACA", 
-      padding: "2rem 0" 
+    <section style={{
+      background: "#FFF5F5",
+      borderTop: "1px solid #FECACA",
+      borderBottom: "1px solid #FECACA",
+      padding: "2rem 0"
     }}>
       <div className="container">
         <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-          <span style={{ 
-            fontFamily: "'Plus Jakarta Sans', sans-serif", 
-            fontWeight: 700, 
-            fontSize: "0.75rem", 
-            color: "#9CA3AF", 
-            letterSpacing: "0.08em", 
-            textTransform: "uppercase" 
+          <span style={{
+            fontFamily: "'Plus Jakarta Sans', sans-serif",
+            fontWeight: 700,
+            fontSize: "0.75rem",
+            color: "#9CA3AF",
+            letterSpacing: "0.08em",
+            textTransform: "uppercase"
           }}>
             Comparamos por ti:
           </span>
         </div>
-        
+
         <div className="scroll-container">
           <div className="scroll-track">
             {allLogos.map((logo, index) => (
               <div key={`${logo}-${index}`} style={{
-                background: "white", 
-                padding: "0.65rem 1.5rem", 
+                background: "white",
+                padding: "0.65rem 1.5rem",
                 borderRadius: "0.75rem",
-                border: "1px solid #FECACA", 
+                border: "1px solid #FECACA",
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
-                fontWeight: 700, 
-                fontSize: "0.9rem", 
-                color: "#6B7280", 
+                fontWeight: 700,
+                fontSize: "0.9rem",
+                color: "#6B7280",
                 whiteSpace: "nowrap",
                 boxShadow: "0 2px 8px rgba(0,0,0,0.02)"
               }}>
@@ -195,6 +195,17 @@ function TrustBand() {
               </div>
             ))}
           </div>
+        </div>
+
+        <div style={{ textAlign: "center", marginTop: "1rem" }}>
+          <p style={{
+            fontFamily: "'Plus Jakarta Sans', sans-serif",
+            fontSize: "0.85rem",
+            color: "#9CA3AF",
+            fontStyle: "italic"
+          }}>
+            ... y muchas más, siempre estamos cerrando nuevos acuerdos.
+          </p>
         </div>
       </div>
     </section>
@@ -377,11 +388,11 @@ function AhorroVisual() {
   return (
     <section className="section" style={{ background: "linear-gradient(160deg, #1A0505 0%, #3D0C0C 100%)" }}>
       <div className="container">
-        <div style={{ 
-          display: "grid", 
-          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", 
-          gap: "2.5rem", 
-          alignItems: "center" 
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))",
+          gap: "2.5rem",
+          alignItems: "center"
         }}>
           <div>
             <span className="badge" style={{ marginBottom: "1rem", background: "rgba(245,158,11,0.15)", color: "#F59E0B" }}>
@@ -575,7 +586,7 @@ function FAQ() {
     },
     {
       q: "¿Cuánto tarda el proceso?",
-      a: "El análisis lo realizamos en menos de 24 horas. Si decides cambiar, el proceso de gestión puede llevar entre 1 y 3 semanas.",
+      a: "El análisis lo realizamos en menos de 24 horas. Si decides cambiar, el proceso de gestión puede llevar entre 2 y 7 días.",
     },
     {
       q: "¿Funciona para pymes y autónomos?",
