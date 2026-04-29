@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
     // 1. Enviar email a la administración (info@energialeon.com)
     const adminEmail = await resend.emails.send({
-      from: 'Energía León <web@energialeon.com>',
+      from: 'Información Asesoría Energética León <web@energialeon.com>',
       to: [process.env.CONTACT_EMAIL || 'info@energialeon.com'],
       replyTo: email, // Permite responder directamente al cliente
       subject: `⚡ Nuevo Estudio: ${nombre} (${tipo}) [#${ticketId}]`,
@@ -86,7 +86,7 @@ export async function POST(request: Request) {
     if (!adminEmail.error && email) {
       try {
         const userEmail = await resend.emails.send({
-          from: 'Energía León <info@energialeon.com>',
+          from: 'Información Asesoría Energética León <info@energialeon.com>',
           to: [email],
           subject: '¡Hemos recibido tu solicitud! - Asesoría Energética León',
           html: `
