@@ -24,11 +24,15 @@ export async function POST(request: Request) {
       });
     }
 
+    // Generar un ID de ticket corto para evitar el agrupamiento de hilos en Gmail
+    const ticketId = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+
     // 1. Enviar email a la administración (info@energialeon.com)
     const adminEmail = await resend.emails.send({
       from: 'Energía León <web@energialeon.com>',
       to: [process.env.CONTACT_EMAIL || 'info@energialeon.com'],
-      subject: `⚡ Nuevo Estudio: ${nombre} (${tipo})`,
+      replyTo: email, // Permite responder directamente al cliente
+      subject: `⚡ Nuevo Estudio: ${nombre} (${tipo}) [#${ticketId}]`,
       html: `
         <div style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px;">
           <h2 style="color: #C62828; border-bottom: 2px solid #C62828; padding-bottom: 10px;">Nuevo Estudio Energético Solicitado</h2>
