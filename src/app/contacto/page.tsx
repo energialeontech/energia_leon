@@ -78,7 +78,12 @@ export default function ContactoPage() {
 
       {/* Formulario */}
       <section className="section">
-        <div className="container" style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: "3rem", alignItems: "flex-start" }}>
+        <div className="container" style={{ 
+          display: "grid", 
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 380px), 1fr))", 
+          gap: "3rem", 
+          alignItems: "flex-start" 
+        }}>
           {/* Info lateral */}
           <div>
             <span className="badge" style={{ marginBottom: "1rem" }}>Formulario de contacto</span>

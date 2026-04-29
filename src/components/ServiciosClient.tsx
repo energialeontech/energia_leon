@@ -18,6 +18,8 @@ const servicios = [
     ],
     descripcion:
       "La factura de la luz tiene muchas variables: potencia, peajes, término de energía, impuestos... Nosotros las analizamos todas y encontramos dónde estás pagando de más.",
+    image: "/optimizacionluz.jpg",
+    porcentaje: "40%",
   },
   {
     id: "gas",
@@ -34,6 +36,8 @@ const servicios = [
     ],
     descripcion:
       "El mercado del gas también tiene opciones. Te ayudamos a entender si la tarifa regulada (TUR) o una del mercado libre es mejor para tu perfil de consumo.",
+    image: "/optimizaciongas.jpg",
+    porcentaje: "35%",
   },
   {
     id: "solar",
@@ -50,6 +54,8 @@ const servicios = [
     ],
     descripcion:
       "Si tienes un negocio con consumo elevado, la energía solar puede reducir tu factura hasta un 70%. Te explicamos si es viable y cuándo recuperarías la inversión.",
+    image: "/energiasolar.jpg",
+    porcentaje: "70%",
   },
 ];
 
@@ -99,16 +105,10 @@ export default function ServiciosClient() {
               <div
                 key={s.id}
                 id={s.id}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "2.5rem",
-                  alignItems: "center",
-                  flexDirection: i % 2 === 0 ? "row" : "row-reverse",
-                }}
+                className={`servicios-grid ${i % 2 !== 0 ? 'reverse' : ''}`}
               >
                 {/* Info */}
-                <div style={{ order: i % 2 === 0 ? 1 : 2 }}>
+                <div className="info-col">
                   <div
                     style={{
                       display: "inline-flex",
@@ -156,35 +156,49 @@ export default function ServiciosClient() {
 
                 {/* Visual */}
                 <div
+                  className="visual-col"
                   style={{
-                    order: i % 2 === 0 ? 2 : 1,
-                    background: `linear-gradient(135deg, ${s.color}22, ${s.color}11)`,
-                    border: `1px solid ${s.color}33`,
+                    position: "relative",
+                    overflow: "hidden",
+                    background: s.image 
+                      ? `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url(${s.image}) center/cover no-repeat`
+                      : `linear-gradient(135deg, ${s.color}22, ${s.color}11)`,
+                    border: `1px solid ${s.image ? 'transparent' : `${s.color}33`}`,
                     borderRadius: "1.5rem",
                     padding: "3rem 2rem",
                     textAlign: "center",
-                    minHeight: "280px",
+                    minHeight: "320px",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    gap: "1rem",
+                    gap: "1.5rem",
+                    boxShadow: s.image ? "inset 0 0 100px rgba(0,0,0,0.5), 0 20px 40px rgba(0,0,0,0.1)" : "none"
                   }}
                 >
-                  <span style={{ fontSize: "5rem" }}>{s.emoji}</span>
+                  <span style={{ 
+                    fontSize: "5rem", 
+                    filter: s.image ? "drop-shadow(0 4px 10px rgba(0,0,0,0.5))" : "none",
+                    zIndex: 2 
+                  }}>
+                    {s.emoji}
+                  </span>
+                  
                   <div
                     style={{
                       background: "white",
                       borderRadius: "0.875rem",
                       padding: "1rem 1.5rem",
-                      boxShadow: `0 4px 20px ${s.color}22`,
+                      boxShadow: `0 10px 30px rgba(0,0,0,0.15)`,
                       border: `1px solid ${s.color}22`,
+                      position: "relative",
+                      zIndex: 2
                     }}
                   >
                     <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 900, fontSize: "2rem", color: s.color }}>
-                      Hasta 40%
+                      Hasta {s.porcentaje || "40%"}
                     </div>
-                    <div style={{ color: "#6B7280", fontSize: "0.8rem" }}>de ahorro posible</div>
+                    <div style={{ color: "#6B7280", fontSize: "0.8rem", fontWeight: 600 }}>de ahorro posible</div>
                   </div>
                 </div>
               </div>
@@ -198,6 +212,38 @@ export default function ServiciosClient() {
         subtitle="No te preocupes. Cuéntanos tu situación y nosotros te diremos qué te conviene."
         variant="dark"
       />
+
+      <style>{`
+        .servicios-grid {
+          display: grid;
+          grid-template-columns: 1.1fr 0.9fr;
+          gap: 4rem;
+          align-items: center;
+          margin-bottom: 5rem;
+        }
+        .servicios-grid.reverse .info-col { order: 2; }
+        .servicios-grid.reverse .visual-col { order: 1; }
+        .servicios-grid .info-col { order: 1; }
+        .servicios-grid .visual-col { order: 2; }
+
+        @media (max-width: 991px) {
+          .servicios-grid {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+            text-align: center;
+          }
+          .servicios-grid .info-col, .servicios-grid.reverse .info-col {
+            order: 1;
+          }
+          .servicios-grid .visual-col, .servicios-grid.reverse .visual-col {
+            order: 2;
+          }
+          .servicios-grid .info-col li {
+            justify-content: center;
+          }
+        }
+      `}</style>
     </>
   );
 }

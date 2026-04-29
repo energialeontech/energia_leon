@@ -127,7 +127,7 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: variant === "full" ? "1fr 1fr" : "1fr",
+          gridTemplateColumns: variant === "full" ? "repeat(auto-fit, minmax(min(100%, 220px), 1fr))" : "1fr",
           gap: "1rem",
         }}
         className="form-grid"

@@ -124,7 +124,7 @@ export default function CTABanner({
             Pide tu estudio gratis
           </StudyCTAButton>
           <a
-            href="https://wa.me/34610396208?text=Hola%2C%20quiero%20que%20me%20llam%C3%A9is"
+            href="https://wa.me/34610396208?text=Hola%2C%20quiero%20que%20me%20contact%C3%A9is"
             target="_blank"
             rel="noopener noreferrer"
             id="cta-banner-llamada"

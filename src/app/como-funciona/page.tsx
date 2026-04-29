@@ -123,15 +123,10 @@ export default function ComoFuncionaPage() {
             {pasos.map((p, i) => (
               <div
                 key={i}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "auto 1fr",
-                  gap: "2rem",
-                  alignItems: "flex-start",
-                }}
+                className="step-grid"
               >
                 {/* Number + line */}
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0" }}>
+                <div className="step-icon-col">
                   <div style={{
                     width: "5rem", height: "5rem", borderRadius: "50%",
                     background: "linear-gradient(135deg, #C62828, #8B1A1A)",
@@ -141,7 +136,7 @@ export default function ComoFuncionaPage() {
                     {p.icon}
                   </div>
                   {i < pasos.length - 1 && (
-                    <div style={{ width: "2px", height: "3rem", background: "linear-gradient(180deg, #C62828, #FECACA)", marginTop: "0.5rem" }} />
+                    <div className="step-line" />
                   )}
                 </div>
 
@@ -206,6 +201,46 @@ export default function ComoFuncionaPage() {
         subtitle="El primer paso es gratis y sin compromiso. Comparte tu factura y nosotros hacemos el resto."
         variant="rojo"
       />
+
+      <style>{`
+        .step-grid {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          gap: 2.5rem;
+          align-items: flex-start;
+        }
+        .step-icon-col {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .step-line {
+          width: 2px;
+          height: 4rem;
+          background: linear-gradient(180deg, #C62828, #FECACA);
+          margin-top: 0.5rem;
+        }
+
+        @media (max-width: 767px) {
+          .step-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            text-align: center;
+          }
+          .step-icon-col {
+            margin-bottom: 0.5rem;
+          }
+          .step-line {
+            display: none;
+          }
+          .step-grid h2 {
+            font-size: 1.25rem;
+          }
+          .step-grid ul {
+            align-items: center;
+          }
+        }
+      `}</style>
     </>
   );
 }
