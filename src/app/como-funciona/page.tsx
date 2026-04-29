@@ -67,7 +67,7 @@ export default function ComoFuncionaPage() {
         "Presupuesto detallado del ahorro esperado",
         "Respuesta a todas tus dudas",
       ],
-      tiempo: "Llamada de 15-20 min",
+      tiempo: "Respuesta rápida",
     },
     {
       num: "04",
@@ -85,7 +85,7 @@ export default function ComoFuncionaPage() {
         "Confirmación cuando el cambio esté activo",
         "Asesor de referencia para cualquier duda posterior",
       ],
-      tiempo: "1 a 3 semanas",
+      tiempo: "2 a 7 días",
     },
   ];
 
