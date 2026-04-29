@@ -322,10 +322,10 @@ function Beneficios() {
 // === CÓMO FUNCIONA ===
 function ComoFunciona() {
   const pasos = [
-    { num: "01", title: "Comparte tu factura", desc: "Envíanos tu última factura de luz o gas por WhatsApp, email o usando el formulario. En menos de 24 h la analizamos." },
-    { num: "02", title: "Análisis 100% gratuito", desc: "Estudiamos tu perfil de consumo y comparamos opciones para ahorrar. Es un estudio gratuito y 100% sin compromiso por tu parte." },
-    { num: "03", title: "Te presentamos el ahorro", desc: "Te contactamos (como prefieras: Llamada, WhatsApp, Email...) para explicarte tu ahorro y recomendaciones. Sin presión." },
-    { num: "04", title: "Gestión y seguimiento", desc: "Si decides avanzar, nos ocupamos de todo. Y si tienes dudas después, seguimos aquí para ayudarte." },
+    { num: "01", title: "Comparte tu factura" },
+    { num: "02", title: "Análisis 100% gratuito" },
+    { num: "03", title: "Te presentamos el ahorro" },
+    { num: "04", title: "Gestión y seguimiento" },
   ];
 
   return (
@@ -366,9 +366,6 @@ function ComoFunciona() {
               <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: "1.1rem", color: "#1C1917", marginBottom: "0.625rem" }}>
                 {paso.title}
               </h3>
-              <p style={{ color: "#6B7280", fontSize: "0.875rem", lineHeight: 1.7, maxWidth: "240px", margin: "0 auto" }}>
-                {paso.desc}
-              </p>
             </div>
           ))}
         </div>

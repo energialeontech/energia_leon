@@ -50,7 +50,7 @@ export default function Header() {
 
   const navLinks = [
     { href: "/", label: "Inicio", icon: "M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" },
-    { href: "/servicios", label: "Servicios", icon: "brand" },
+    { href: "/servicios", label: "Servicios", icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z" },
     { href: "/como-funciona", label: "Cómo funciona", icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
     { href: "/contacto", label: "Contacto", icon: "M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.04a16 16 0 0 0 6.05 6.05l.96-.93a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.46 16.92z" },
   ];
