@@ -133,23 +133,24 @@ export default function SobreMiPage() {
 
         .experience-badge {
           position: absolute;
-          bottom: 2rem;
+          bottom: 1.5rem;
           right: -1rem;
           background: white;
-          padding: 1.25rem 2rem;
+          padding: 1rem 1.5rem;
           border-radius: 1rem;
           box-shadow: 0 15px 30px rgba(198,40,40,0.2);
           display: flex;
           align-items: center;
-          gap: 1rem;
+          gap: 0.75rem;
           border: 1px solid #FFF5F5;
           z-index: 2;
+          transition: all 0.3s ease;
         }
 
         .experience-badge .years {
           font-family: 'Plus Jakarta Sans', sans-serif;
           font-weight: 900;
-          font-size: 2.5rem;
+          font-size: 2rem;
           color: #C62828;
           line-height: 1;
         }
@@ -211,7 +212,15 @@ export default function SobreMiPage() {
             margin: 0 auto;
           }
           .experience-badge {
-            right: 2rem;
+            right: 0rem;
+            bottom: 1rem;
+            padding: 0.75rem 1.25rem;
+          }
+          .experience-badge .years {
+            font-size: 1.75rem;
+          }
+          .experience-badge .text {
+            font-size: 0.65rem;
           }
         }
 
