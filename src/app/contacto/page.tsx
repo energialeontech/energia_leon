@@ -5,7 +5,7 @@ import CanalesContacto from "@/components/CanalesContacto";
 export const metadata: Metadata = {
   title: "Contacto | Asesoría Energética León",
   description:
-    "Contáctanos para tu estudio energético gratuito. Te llamamos, escribimos por WhatsApp o rellenas el formulario.",
+    "Contáctanos para tu estudio energético gratuito. Te contactaremos, escribiremos por WhatsApp o rellenas el formulario.",
 };
 
 const canales = [
@@ -15,9 +15,9 @@ const canales = [
         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.58 3.49 2 2 0 0 1 3.55 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.08 6.08l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2z" />
       </svg>
     ),
-    titulo: "Te llamamos",
+    titulo: "Te contactaremos",
     valor: "+34 610 39 62 08",
-    desc: "Llámanos o déjanos tu número y nosotros te llamamos.",
+    desc: "Llámanos o déjanos tu número y nosotros te contactaremos.",
     href: "tel:+34610396208",
     id: "contacto-telefono",
   },
@@ -94,7 +94,7 @@ export default function ContactoPage() {
               {[
                 { paso: "1", texto: "Rellena tus datos de contacto" },
                 { paso: "2", texto: "Adjunta tu factura (opcional pero recomendado)" },
-                { paso: "3", texto: "Te llamamos en menos de 24 horas" },
+                { paso: "3", texto: "Te contactaremos en menos de 24 horas" },
               ].map((item) => (
                 <div key={item.paso} style={{ display: "flex", alignItems: "center", gap: "0.875rem" }}>
                   <div style={{ width: "2rem", height: "2rem", minWidth: "2rem", background: "linear-gradient(135deg, #C62828, #8B1A1A)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>

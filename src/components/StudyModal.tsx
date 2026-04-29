@@ -98,7 +98,7 @@ export default function StudyModal() {
               </span>
             </div>
             <p style={{ color: "#6B7280", fontSize: "0.875rem" }}>
-              Sin compromiso · Te llamamos en menos de 24 h
+              Sin compromiso · Te contactaremos en menos de 24 h
             </p>
           </div>
           <button

@@ -139,7 +139,7 @@ function Hero() {
               ¿Quieres saber cuánto ahorras?
             </h2>
             <p style={{ color: "#6B7280", fontSize: "0.875rem" }}>
-              Déjanos tus datos y te llamamos sin ningún compromiso.
+              Déjanos tus datos y te contactaremos sin ningún compromiso.
             </p>
           </div>
           <ContactForm variant="compact" />

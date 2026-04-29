@@ -12,7 +12,7 @@ export async function POST(request: Request) {
 
     const resend = new Resend(apiKey);
     const body = await request.json();
-    const { nombre, telefono, email, tipo, mensaje, facturaBase64, facturaName, facturaType } = body;
+    const { nombre, telefono, email, tipo, metodoContacto, mensaje, facturaBase64, facturaName, facturaType } = body;
 
     // Construir los adjuntos si hay factura
     const attachments = [];
@@ -52,6 +52,10 @@ export async function POST(request: Request) {
             <tr>
               <td style="padding: 10px; border: 1px solid #eee; font-weight: bold;">Tipo:</td>
               <td style="padding: 10px; border: 1px solid #eee; text-transform: capitalize;">${tipo}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #eee; font-weight: bold;">Preferencia contacto:</td>
+              <td style="padding: 10px; border: 1px solid #eee; text-transform: capitalize; font-weight: bold; color: #C62828;">${metodoContacto}</td>
             </tr>
             <tr>
               <td style="padding: 10px; border: 1px solid #eee; font-weight: bold;">Mensaje:</td>
@@ -98,7 +102,7 @@ export async function POST(request: Request) {
 
                 <div style="background: linear-gradient(135deg, #fff5f5 0%, #fff 100%); padding: 25px; border-radius: 12px; border-left: 4px solid #C62828; margin-bottom: 30px;">
                   <p style="margin: 0; font-size: 16px; color: #333;">
-                    Nuestro equipo de expertos ya está analizando tu caso. <strong>Nos pondremos en contacto contigo en menos de 24 horas laborables</strong> para ofrecerte la mejor solución de ahorro para tu factura.
+                    Nuestro equipo de expertos ya está analizando tu caso. <strong>Nos pondremos en contacto contigo por ${metodoContacto === 'llamada' ? 'teléfono' : metodoContacto} en menos de 24 horas laborables</strong> para ofrecerte la mejor solución de ahorro para tu factura.
                   </p>
                 </div>
 

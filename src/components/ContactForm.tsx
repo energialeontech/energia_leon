@@ -12,6 +12,7 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
     telefono: "",
     email: "",
     tipo: "hogar",
+    metodoContacto: "whatsapp",
     mensaje: "",
     factura: null as File | null,
     privacidad: false,
@@ -200,6 +201,25 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
             <option value="hogar">Hogar / Particular</option>
             <option value="pyme">Pyme / Negocio</option>
             <option value="empresa">Empresa grande</option>
+          </select>
+        </div>
+
+        {/* Método de contacto */}
+        <div>
+          <label htmlFor="metodoContacto" className="input-label">
+            Prefiero que me contacten por...
+          </label>
+          <select
+            id="metodoContacto"
+            name="metodoContacto"
+            value={form.metodoContacto}
+            onChange={handleChange}
+            className="input-field"
+            style={{ cursor: "pointer" }}
+          >
+            <option value="whatsapp">WhatsApp</option>
+            <option value="llamada">Llamada telefónica</option>
+            <option value="email">Correo electrónico</option>
           </select>
         </div>
 
