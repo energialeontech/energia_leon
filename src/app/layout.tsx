@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     title: "Asesoría Energética León | Ahorra en tu factura",
     description:
       "Estudio energético gratuito. Te ayudamos a pagar menos en luz y gas.",
+    siteName: "Asesoría Energética León",
     locale: "es_ES",
     type: "website",
   },
