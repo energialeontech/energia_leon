@@ -12,7 +12,10 @@ export const metadata: Metadata = {
   keywords:
     "asesoría energética, ahorro energético, factura luz, factura gas, tarifa energía, Sevilla, España, pymes, hogares",
   icons: {
-    icon: "/favicon.svg",
+    icon: [
+      { url: "/icon-google.png", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
