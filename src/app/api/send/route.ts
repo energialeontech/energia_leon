@@ -14,6 +14,8 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { nombre, telefono, email, tipo, metodoContacto, mensaje, facturaBase64, facturaName, facturaType } = body;
 
+    const tipoReadable = tipo === 'hogar' ? 'Hogar / Particular' : tipo === 'pyme' ? 'Pyme / Negocio' : 'Empresa grande';
+
     // Construir los adjuntos si hay factura
     const attachments = [];
     if (facturaBase64 && facturaName) {
@@ -32,7 +34,7 @@ export async function POST(request: Request) {
       from: 'Información Asesoría Energética León <web@energialeon.com>',
       to: [process.env.CONTACT_EMAIL || 'info@energialeon.com'],
       replyTo: email, // Permite responder directamente al cliente
-      subject: `⚡ Nuevo Estudio: ${nombre} (${tipo}) [#${ticketId}]`,
+      subject: `⚡ Nuevo Estudio: ${nombre} (${tipoReadable}) [#${ticketId}]`,
       html: `
         <div style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px;">
           <h2 style="color: #C62828; border-bottom: 2px solid #C62828; padding-bottom: 10px;">Nuevo Estudio Energético Solicitado</h2>
@@ -55,7 +57,7 @@ export async function POST(request: Request) {
             </tr>
             <tr>
               <td style="padding: 10px; border: 1px solid #eee; font-weight: bold;">Tipo:</td>
-              <td style="padding: 10px; border: 1px solid #eee; text-transform: capitalize;">${tipo}</td>
+              <td style="padding: 10px; border: 1px solid #eee;">${tipoReadable}</td>
             </tr>
             <tr>
               <td style="padding: 10px; border: 1px solid #eee; font-weight: bold;">Preferencia contacto:</td>
@@ -147,6 +149,204 @@ export async function POST(request: Request) {
     if (adminEmail.error) {
       console.error("Error detallado de Resend (Admin):", adminEmail.error);
       return NextResponse.json({ error: adminEmail.error }, { status: 400 });
+    }
+
+    // 3. Integración con HubSpot (Contactos y Notas)
+    const hubspotToken = process.env.HUBSPOT_ACCESS_TOKEN;
+    if (hubspotToken && email) {
+      try {
+        let contactId = null;
+
+        // 3.1. Buscar si el contacto ya existe por email
+        const searchResponse = await fetch('https://api.hubapi.com/crm/v3/objects/contacts/search', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${hubspotToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            filterGroups: [{
+              filters: [{
+                propertyName: 'email',
+                operator: 'EQ',
+                value: email
+              }]
+            }]
+          })
+        });
+        
+        if (searchResponse.ok) {
+          const searchData = await searchResponse.json();
+          if (searchData.total > 0) {
+            contactId = searchData.results[0].id;
+          }
+        }
+
+        // 3.2. Si no existe, crear el contacto
+        if (!contactId) {
+          const createResponse = await fetch('https://api.hubapi.com/crm/v3/objects/contacts', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${hubspotToken}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              properties: {
+                firstname: nombre,
+                email: email,
+                phone: telefono,
+                lifecyclestage: 'lead'
+              }
+            })
+          });
+          
+          if (createResponse.ok) {
+            const createData = await createResponse.json();
+            contactId = createData.id;
+          } else {
+            console.error('HubSpot: Error creando contacto', await createResponse.text());
+          }
+        }
+
+        // Subir la factura a HubSpot Files si existe
+        let fileId = null;
+        if (facturaBase64 && facturaName) {
+          try {
+            const match = facturaBase64.match(/^data:(.+);base64,(.*)$/);
+            let blob: Blob;
+            
+            if (match) {
+              const mimeType = match[1];
+              const b64Data = match[2];
+              const buffer = Buffer.from(b64Data, 'base64');
+              blob = new Blob([buffer], { type: mimeType });
+            } else {
+              const buffer = Buffer.from(facturaBase64, 'base64');
+              blob = new Blob([buffer], { type: facturaType || 'application/octet-stream' });
+            }
+
+            const formData = new FormData();
+            formData.append("file", blob, facturaName);
+            formData.append("options", JSON.stringify({ access: "PRIVATE" }));
+            formData.append("folderPath", "/facturas_web");
+
+            const uploadRes = await fetch("https://api.hubapi.com/files/v3/files", {
+              method: "POST",
+              headers: {
+                'Authorization': `Bearer ${hubspotToken}`
+              },
+              body: formData
+            });
+
+            if (uploadRes.ok) {
+              const uploadData = await uploadRes.json();
+              fileId = uploadData.id;
+              console.log('HubSpot: Archivo subido con éxito. ID:', fileId);
+            } else {
+              console.error('HubSpot: Error subiendo archivo', await uploadRes.text());
+            }
+          } catch (uploadError) {
+            console.error('HubSpot: Excepción subiendo archivo', uploadError);
+          }
+        }
+
+        // 3.3. Crear un "Negocio" (Deal) asociado al contacto
+        let dealId = null;
+        if (contactId) {
+          const dealResponse = await fetch('https://api.hubapi.com/crm/v3/objects/deals', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${hubspotToken}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              properties: {
+                dealname: `Estudio ${tipoReadable} - ${nombre}`,
+                pipeline: 'default',
+                dealstage: 'appointmentscheduled', // Esto lo coloca en la primera columna "Cita programada"
+                nombre_completo_w: nombre,
+                telefono_w: telefono,
+                email_w: email,
+                tipo_de_estudio_w: tipoReadable,
+                preferencia_de_contacto_w: metodoContacto,
+                mensaje_del_cliente_w: mensaje || 'Sin mensaje adicional'
+              },
+              associations: [
+                {
+                  to: { id: contactId },
+                  types: [
+                    {
+                      associationCategory: 'HUBSPOT_DEFINED',
+                      associationTypeId: 3 // Asociación Deal-to-Contact
+                    }
+                  ]
+                }
+              ]
+            })
+          });
+
+          if (!dealResponse.ok) {
+            console.error('HubSpot: Error creando negocio', await dealResponse.text());
+          } else {
+            const dealData = await dealResponse.json();
+            dealId = dealData.id;
+            console.log('HubSpot: Negocio creado con éxito. ID:', dealId);
+          }
+        }
+
+        // 3.4. Crear una Nota visual con los datos del formulario y asociarla al Negocio y al Contacto
+        if (dealId && contactId) {
+          const noteBody = `Nueva solicitud de estudio energético desde la web:<br><br>- <b>Nombre:</b> ${nombre}<br>- <b>Teléfono:</b> ${telefono}<br>- <b>Email:</b> ${email}<br>- <b>Tipo de estudio:</b> ${tipoReadable}<br>- <b>Preferencia de contacto:</b> ${metodoContacto}<br>- <b>Mensaje:</b> ${mensaje || 'Sin mensaje adicional'}<br>- <b>Factura adjunta:</b> ${facturaName ? 'Sí (' + facturaName + ')' : 'No'}`;
+
+          const noteProperties: any = {
+            hs_timestamp: new Date().getTime().toString(),
+            hs_note_body: noteBody
+          };
+
+          if (fileId) {
+            noteProperties.hs_attachment_ids = fileId.toString();
+          }
+
+          const noteResponse = await fetch('https://api.hubapi.com/crm/v3/objects/notes', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${hubspotToken}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              properties: noteProperties,
+              associations: [
+                {
+                  to: { id: dealId },
+                  types: [
+                    {
+                      associationCategory: 'HUBSPOT_DEFINED',
+                      associationTypeId: 214 // Note to Deal
+                    }
+                  ]
+                },
+                {
+                  to: { id: contactId },
+                  types: [
+                    {
+                      associationCategory: 'HUBSPOT_DEFINED',
+                      associationTypeId: 202 // Note to Contact
+                    }
+                  ]
+                }
+              ]
+            })
+          });
+
+          if (!noteResponse.ok) {
+            console.error('HubSpot: Error creando nota visual', await noteResponse.text());
+          } else {
+            console.log('HubSpot: Nota visual adjuntada correctamente.');
+          }
+        }
+      } catch (hsError) {
+        console.error('Error integrando con HubSpot:', hsError);
+      }
     }
 
     return NextResponse.json(adminEmail);
