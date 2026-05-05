@@ -578,10 +578,6 @@ function FAQ() {
       a: "Sí, completamente gratuito y sin ningún tipo de compromiso. No te pediremos que contrates nada ni te cobraremos por el análisis.",
     },
     {
-      q: "¿Tengo que cambiar de compañía?",
-      a: "No necesariamente. A veces el ahorro viene de optimizar la tarifa dentro de tu compañía actual. Siempre te presentamos todas las opciones.",
-    },
-    {
       q: "¿Cuánto tarda el proceso?",
       a: "El análisis lo realizamos en menos de 24 horas. Si decides cambiar, el proceso de gestión puede llevar entre 2 y 7 días.",
     },

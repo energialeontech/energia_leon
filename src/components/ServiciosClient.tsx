@@ -90,7 +90,7 @@ export default function ServiciosClient() {
             </span>
           </h1>
           <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "1.1rem", maxWidth: "560px", margin: "0 auto 2rem", lineHeight: 1.7 }}>
-            Sin cambiar de compañía necesariamente. Analizamos tu situación y encontramos la mejor solución para ti.
+            Analizamos tu situación y encontramos la mejor solución para ti.
           </p>
           <StudyCTAButton className="btn-amber" id="servicios-hero-cta">
             Pide tu estudio gratis →

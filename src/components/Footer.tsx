@@ -56,7 +56,7 @@ export default function Footer() {
               </div>
             </div>
             <p style={{ color: "#D1D5DB", fontSize: "0.875rem", lineHeight: 1.7, maxWidth: "260px" }}>
-              Te ayudamos a pagar menos en luz y gas, sin cambiar de compañía y con total transparencia.
+              Te ayudamos a pagar menos en luz y gas, y con total transparencia.
             </p>
 
           </div>

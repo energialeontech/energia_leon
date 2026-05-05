@@ -8,7 +8,7 @@ import StudyModal from "@/components/StudyModal";
 export const metadata: Metadata = {
   title: "Asesoría Energética León | Ahorra en tu factura de luz y gas",
   description:
-    "Reducimos tu factura de luz y gas sin cambiar de compañía. Estudio energético gratuito para hogares y pymes en España. Contacta ahora.",
+    "Reducimos tu factura de luz y gas. Estudio energético gratuito para hogares y pymes en España. Contacta ahora.",
   keywords:
     "asesoría energética, ahorro energético, factura luz, factura gas, tarifa energía, Sevilla, España, pymes, hogares",
   icons: {
