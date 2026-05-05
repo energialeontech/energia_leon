@@ -1,5 +1,79 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
+import { google } from 'googleapis';
+import { Readable } from 'stream';
+
+async function uploadToDrive(base64Data: string, fileName: string, mimeType: string, nombreCliente: string) {
+  try {
+    const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID;
+    const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET;
+    const refreshToken = process.env.GOOGLE_DRIVE_REFRESH_TOKEN;
+    const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
+
+    if (!clientId || !clientSecret || !refreshToken || !folderId) {
+      console.error('Google Drive configuration missing');
+      return null;
+    }
+
+    const auth = new google.auth.OAuth2(clientId, clientSecret);
+    auth.setCredentials({ refresh_token: refreshToken });
+
+    const drive = google.drive({ version: 'v3', auth });
+    
+    // Extraer contenido base64
+    const content = base64Data.split(',')[1] || base64Data;
+    const buffer = Buffer.from(content, 'base64');
+    
+    const stream = new Readable();
+    stream.push(buffer);
+    stream.push(null);
+
+    // Nombre personalizado: FacturaWeb_(Nombre)_(Fecha)
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const dateStr = `${day}-${month}-${year}`;
+    
+    const extension = fileName.includes('.') ? fileName.split('.').pop() : 'file';
+    const cleanNombre = nombreCliente
+      .trim()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-zA-Z0-9]/g, '_');
+    const customName = `FacturaWeb_${cleanNombre}_${dateStr}.${extension}`;
+
+    const fileMetadata = {
+      name: customName,
+      parents: [folderId],
+    };
+
+    const media = {
+      mimeType: mimeType || 'application/octet-stream',
+      body: stream,
+    };
+
+    const file = await drive.files.create({
+      requestBody: fileMetadata,
+      media: media,
+      fields: 'id, webViewLink',
+    });
+
+    // Dar permisos de lectura a cualquiera con el enlace (para que sea visible en HubSpot)
+    await drive.permissions.create({
+      fileId: file.data.id!,
+      requestBody: {
+        role: 'reader',
+        type: 'anyone',
+      },
+    });
+
+    return file.data.webViewLink;
+  } catch (error) {
+    console.error('Error uploading to Drive:', error);
+    return null;
+  }
+}
 
 export async function POST(request: Request) {
   try {
@@ -151,6 +225,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: adminEmail.error }, { status: 400 });
     }
 
+    // 2.5. Subir a Google Drive si hay factura
+    let driveLink = null;
+    if (facturaBase64 && facturaName) {
+      console.log('Iniciando subida a Google Drive...');
+      driveLink = await uploadToDrive(facturaBase64, facturaName, facturaType, nombre);
+      console.log('Resultado Drive Link:', driveLink);
+    }
+
     // 3. Integración con HubSpot (Contactos y Notas)
     const hubspotToken = process.env.HUBSPOT_ACCESS_TOKEN;
     if (hubspotToken && email) {
@@ -195,7 +277,8 @@ export async function POST(request: Request) {
                 firstname: nombre,
                 email: email,
                 phone: telefono,
-                lifecyclestage: 'lead'
+                lifecyclestage: 'lead',
+                enlace_factura_formulario: driveLink || ''
               }
             })
           });
@@ -262,14 +345,15 @@ export async function POST(request: Request) {
             body: JSON.stringify({
               properties: {
                 dealname: `Estudio ${tipoReadable} - ${nombre}`,
-                pipeline: 'default',
-                dealstage: 'appointmentscheduled', // Esto lo coloca en la primera columna "Cita programada"
+                pipeline: '3784889572',
+                dealstage: '5302764753', // Esto lo coloca en la columna "Formulario pendiente" del pipeline "Formularios web"
                 nombre_completo_w: nombre,
                 telefono_w: telefono,
                 email_w: email,
                 tipo_de_estudio_w: tipoReadable,
                 preferencia_de_contacto_w: metodoContacto,
-                mensaje_del_cliente_w: mensaje || 'Sin mensaje adicional'
+                mensaje_del_cliente_w: mensaje || 'Sin mensaje adicional',
+                factura_adjunta_w: driveLink || ''
               },
               associations: [
                 {
@@ -296,7 +380,8 @@ export async function POST(request: Request) {
 
         // 3.4. Crear una Nota visual con los datos del formulario y asociarla al Negocio y al Contacto
         if (dealId && contactId) {
-          const noteBody = `Nueva solicitud de estudio energético desde la web:<br><br>- <b>Nombre:</b> ${nombre}<br>- <b>Teléfono:</b> ${telefono}<br>- <b>Email:</b> ${email}<br>- <b>Tipo de estudio:</b> ${tipoReadable}<br>- <b>Preferencia de contacto:</b> ${metodoContacto}<br>- <b>Mensaje:</b> ${mensaje || 'Sin mensaje adicional'}<br>- <b>Factura adjunta:</b> ${facturaName ? 'Sí (' + facturaName + ')' : 'No'}`;
+          const driveText = driveLink ? `<br>- <b>Enlace Drive:</b> <a href="${driveLink}">${driveLink}</a>` : '';
+          const noteBody = `Nueva solicitud de estudio energético desde la web:<br><br>- <b>Nombre:</b> ${nombre}<br>- <b>Teléfono:</b> ${telefono}<br>- <b>Email:</b> ${email}<br>- <b>Tipo de estudio:</b> ${tipoReadable}<br>- <b>Preferencia de contacto:</b> ${metodoContacto}<br>- <b>Mensaje:</b> ${mensaje || 'Sin mensaje adicional'}<br>- <b>Factura adjunta:</b> ${facturaName ? 'Sí (' + facturaName + ')' : 'No'}${driveText}`;
 
           const noteProperties: any = {
             hs_timestamp: new Date().getTime().toString(),
