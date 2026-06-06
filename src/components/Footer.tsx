@@ -177,6 +177,18 @@ export default function Footer() {
         >
           <p style={{ color: "#6B7280", fontSize: "0.8rem" }}>
             © {new Date().getFullYear()} Asesoría Energética León. Todos los derechos reservados.
+            <span style={{ margin: "0 0.5rem" }}>|</span>
+            Web desarrollada por{" "}
+            <a 
+              href="https://hidalgonoe.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              style={{ color: "#F59E0B", textDecoration: "none", transition: "color 0.2s" }}
+              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#FECACA")}
+              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "#F59E0B")}
+            >
+              hidalgonoe.com
+            </a>
           </p>
           <div style={{ display: "flex", gap: "1.25rem" }}>
             {[
