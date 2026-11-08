@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import CTABanner from "@/components/CTABanner";
 import ContactForm from "@/components/ContactForm";
 import StudyCTAButton from "@/components/StudyCTAButton";
@@ -71,7 +72,7 @@ function Hero() {
             maxWidth: "480px",
           }}>
             Analizamos tu factura actual y encontramos la tarifa que mejor se adapta a tu consumo.{" "}
-            <strong style={{ color: "white" }}>Nuestros clientes ahorran de media 250 € al año.</strong>
+            <strong style={{ color: "white" }}>Solo gestionamos el cambio si el estudio muestra un ahorro en tu factura.</strong>
           </p>
 
           {/* CTAs */}
@@ -107,7 +108,7 @@ function Hero() {
           <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem" }}>
             {[
               { num: "+500", label: "clientes satisfechos" },
-              { num: "250€", label: "ahorro medio/año" },
+              { num: "250€", label: "ahorro medio anual de clientes con ahorro" },
               { num: "24h", label: "respuesta garantizada" },
             ].map((s) => (
               <div key={s.num} style={{ textAlign: "left" }}>
@@ -120,6 +121,9 @@ function Hero() {
               </div>
             ))}
           </div>
+          <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.85rem", lineHeight: 1.6, marginTop: "1rem", maxWidth: "480px" }}>
+            Esta media corresponde a los clientes para los que hemos encontrado ahorro, no a todas las solicitudes de estudio. Tu ahorro depende de tu consumo y de tu tarifa actual. Si no podemos mejorarla, te lo decimos y no tramitamos el cambio.
+          </p>
         </div>
 
         {/* Form card */}
@@ -150,6 +154,31 @@ function Hero() {
 }
 
 // === LOGOS CONFIANZA ===
+function SobreAntonio() {
+  return (
+    <section className="section" aria-labelledby="sobre-antonio-title">
+      <div className="container" style={{ display: "flex", flexWrap: "wrap", gap: "2.5rem", alignItems: "center" }}>
+        <div style={{ flex: "0 1 280px", margin: "0 auto" }}>
+          <Image src="/fotoantonio.jpeg" alt="Antonio López León, tu asesor energético" width={600} height={800} sizes="280px" style={{ width: "100%", height: "auto", borderRadius: "1.5rem" }} />
+        </div>
+        <div style={{ flex: "1 1 300px", minWidth: 0 }}>
+          <span className="badge" style={{ marginBottom: "1rem" }}>Sobre mí · Asesoría con nombre propio</span>
+          <h2 id="sobre-antonio-title" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", color: "#1C1917", marginBottom: "1rem" }}>
+            Soy Antonio, tu asesor energético
+          </h2>
+          <p style={{ color: "#374151", lineHeight: 1.8, marginBottom: "1rem" }}>
+            Llevo más de 5 años trabajando en el sector energético. Reviso cada factura personalmente y te explico qué opción se adapta a tu consumo, con un trato cercano y directo.
+          </p>
+          <p style={{ color: "#374151", lineHeight: 1.8, marginBottom: "1.5rem" }}>
+            Solo te propongo contratar si el estudio muestra un ahorro en tu factura. Si ya tienes una buena tarifa y no puedo mejorarla, te lo digo. Mi compromiso es acompañarte también después del cambio.
+          </p>
+          <Link href="/sobre-mi" style={{ color: "#8B1A1A", fontWeight: 700, textDecoration: "underline", textUnderlineOffset: "4px" }}>Conoce más sobre mí →</Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function TrustBand() {
   const logos = ["Endesa", "Iberdrola", "Naturgy", "EDP", "Repsol", "Holaluz"];
   // Duplicamos los logos para el efecto de scroll infinito
@@ -396,15 +425,15 @@ function AhorroVisual() {
               Resultados reales
             </span>
             <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 900, fontSize: "clamp(1.75rem, 3vw, 2.25rem)", color: "white", marginBottom: "1.25rem" }}>
-              ¿Cuánto estás pagando de más?
+              El ahorro se estudia caso a caso
             </h2>
             <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "1rem", lineHeight: 1.75, marginBottom: "2rem" }}>
-              La mayoría de hogares y pymes en España tienen una tarifa inadecuada para su consumo real. Eso se traduce en cientos de euros al año perdidos sin saberlo.
+              Las cifras mostradas corresponden a estos casos de clientes con ahorro. No son una previsión para todas las personas que solicitan un estudio. Revisamos tu factura y solo proponemos contratar si encontramos una opción que te permita ahorrar.
             </p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2rem" }}>
               {[
-                { label: "Hogar medio", antes: "1.200 €/año", despues: "940 €/año", ahorro: "260 €" },
+                { label: "Caso de hogar", antes: "1.200 €/año", despues: "940 €/año", ahorro: "260 €" },
                 { label: "Pyme pequeña", antes: "4.800 €/año", despues: "3.900 €/año", ahorro: "900 €" },
               ].map((row) => (
                 <div key={row.label} style={{
@@ -447,7 +476,7 @@ function AhorroVisual() {
               <div style={{ marginBottom: "1.5rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
                   <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 600 }}>
-                    Lo que pagas
+                    Coste anterior de este hogar
                   </span>
                   <span style={{ color: "#FECACA", fontSize: "0.8rem", fontWeight: 700 }}>1.200 €</span>
                 </div>
@@ -458,7 +487,7 @@ function AhorroVisual() {
               <div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
                   <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 600 }}>
-                    Lo que deberías pagar
+                    Coste estimado con el cambio
                   </span>
                   <span style={{ color: "#F59E0B", fontSize: "0.8rem", fontWeight: 700 }}>940 €</span>
                 </div>
@@ -477,7 +506,7 @@ function AhorroVisual() {
                   260 €
                 </div>
                 <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.875rem" }}>
-                  de ahorro anual estimado
+                  de ahorro anual estimado para este hogar
                 </div>
               </div>
             </div>
@@ -499,8 +528,8 @@ function Testimonios() {
       rating: 5,
     },
     {
-      nombre: "Carlos M.",
-      tipo: "Dueño de bar, León",
+      nombre: "El Cobertizo de Julio",
+      tipo: "Bar · Sanlúcar la Mayor",
       texto: "Mi factura de negocio era una locura. El equipo me explicó todo con paciencia y cambiaron tanto la potencia como la tarifa. Resultados inmediatos.",
       ahorro: "1.200 €/año",
       rating: 5,
@@ -635,6 +664,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <SobreAntonio />
       <TrustBand />
       <Beneficios />
       <ComoFunciona />
